@@ -3,10 +3,13 @@ import random
 import os
 import pandas as pd
 import numpy as np
+import warnings
 
 from pipeline_utils import *
 
 if __name__ == '__main__':
+
+    warnings.filterwarnings("ignore") ## Ignore the warnings about depreciations
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_location', action='store', default='pria_data/', dest='data_folder', required=True)
