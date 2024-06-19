@@ -4,21 +4,20 @@ import os
 import pandas as pd
 import numpy as np
 import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 from pipeline_utils import *
 
 if __name__ == '__main__':
 
-    warnings.filterwarnings("ignore") ## Ignore the warnings about depreciations
-
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_location', action='store', default='pria_data/', dest='data_folder', required=True)
-    parser.add_argument('--target_name', action='store', default='Keck_Pria_AS_Retest', dest='target_name', required=True)
+    parser.add_argument('--target_name', action='store', default='Keck_Pria_AS_Retest', dest='target_name', required=False)
     parser.add_argument('--sample_size', action='store', default=10000, dest='sample_size', required=True)
     parser.add_argument('--number_of_seeds', action='store', default=5, dest='number_of_seeds', required=True)
     parser.add_argument('--budget', action='store', default=96, dest='budget', required=True)
     parser.add_argument('--number_of_iterations', action='store', default=20, dest='iter_count', required=True)
-    parser.add_argument('--sample_seed', action='store', default=284, dest='sample_seed', required=True)
+    parser.add_argument('--sample_seed', action='store', default=284, dest='sample_seed', type=int, required=False)
     parser.add_argument('--model', action='store', default='forest_balanced', dest='model', required=True)
     '''Possible arguments for model: forest_balanced, forest_none, mlp '''
 
@@ -30,8 +29,10 @@ if __name__ == '__main__':
     budget = int(given_args.budget)
     iter_count = int(given_args.iter_count)
     model = given_args.model
-
-    vae = VAEUtils(directory='chemvae/models/zinc_properties/')
+    sample_seed = given_args.sample_seed
+    
+    #vae = VAEUtils(directory='chemvae/models/zinc_properties/')
+    vae = VAEUtils(directory='models/zinc_properties/')
     
     ''' Make all the data and target names command line variables'''
     pria_training = pd.read_csv(data_folder + '/training.csv', header=0)
@@ -42,8 +43,8 @@ if __name__ == '__main__':
     pria_test_smiles = list(pria_testing['SMILES'])
     pria_test_targets = list(pria_testing[target_name])
     
-    encoded_pria_smiles, encoded_pria_targets, failed_pria_smiles = encode_smiles(pria_smiles, pria_targets)
-    encoded_pria_smiles_test, encoded_pria_targets_test, failed_pria_smiles_test = encode_smiles(pria_test_smiles, pria_test_targets)
+    encoded_pria_smiles, encoded_pria_targets, failed_pria_smiles = encode_smiles(pria_smiles, pria_targets, vae)
+    encoded_pria_smiles_test, encoded_pria_targets_test, failed_pria_smiles_test = encode_smiles(pria_test_smiles, pria_test_targets, vae)
 
     encoded_pria_smiles = np.array(encoded_pria_smiles).reshape(len(encoded_pria_smiles), 196)
     encoded_pria_smiles_test = np.array(encoded_pria_smiles_test).reshape(len(encoded_pria_smiles_test), 196)
@@ -62,7 +63,7 @@ if __name__ == '__main__':
         encoded_pria_targets_sample = encoded_pria_targets.copy()
 
         encoded_pria_df_sample = sample_dataset(encoded_pria_df_sample, encoded_pria_targets_sample, sample_size, 
-                                                seed=284) # seed from first run with good results
+                                                seed=sample_seed) # seed from first run with good results
         encoded_pria_targets_sample = encoded_pria_df_sample['Target']
         positive_df = encoded_pria_df_sample[encoded_pria_df_sample['Target'] == 1]
         positive_df.drop(['Target'], axis=1)

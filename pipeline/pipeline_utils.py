@@ -47,7 +47,7 @@ from matplotlib.collections import LineCollection
 
 '''Methods'''
 
-def encode_smiles(pria_smiles, pria_targets):
+def encode_smiles(pria_smiles, pria_targets, vae):
     encoded_pria_smiles = []
     failed_pria_smiles = []
     encoded_pria_targets = []
