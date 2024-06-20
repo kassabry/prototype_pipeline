@@ -43,6 +43,7 @@ from operator import itemgetter
 import os
 import joblib
 from matplotlib.collections import LineCollection
+from sklearn.neural_network import MLPClassifier
 
 
 '''Methods'''
@@ -198,9 +199,9 @@ def visualize(optimizer, all_points, all_targets, sample_count, result_path, bud
     
     #Plotting distribtuion of forest vs actives/inactives
     ''' Figure out how to iterate through these by the budget count and print to a separate file'''
-    for i in range(iter_count):
-        initial_optimizer = optimizer_targets[budget*i:budget*(i+1)]
-        initial_targets = all_targets[budget*i:budget*(i+1)]
+    for iteration in range(iter_count):
+        initial_optimizer = optimizer_targets[budget*iteration:budget*(iteration+1)]
+        initial_targets = all_targets[budget*iteration:budget*(iteration+1)]
         x=[i for i in range(budget)]
         #print(len(positive_sample), len(rand_val))
         #print(type(initial_targets), print(np.array(initial_targets)), print(initial_targets))
@@ -217,7 +218,7 @@ def visualize(optimizer, all_points, all_targets, sample_count, result_path, bud
         ax.plot(x, [i for (i,j) in y], 'bo', markersize = 4)
         ax.plot(x, [j for (i,j) in y], 'rs', markersize = 4)
         ax.add_collection(linecoll)
-        plt.savefig(result_path + 'point_differences/%s_point_forest_differences_%s.png' % (str(sample_count), str(i)))
+        plt.savefig(result_path + 'point_differences/%s_point_forest_differences_%s.png' % (str(sample_count), str(iteration)))
         plt.close()
     
     return explained_var

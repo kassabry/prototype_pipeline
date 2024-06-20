@@ -1,12 +1,21 @@
 name: chemvae
 channels:
-  - defaults
+  - rdkit
+  - conda-forge
+
 dependencies:
-  - python=3.6
-  - numpy
-  - rdkit=2020.09.1.0
-  - matplotlib
-  - scikit-learn
+  - keras=2.0.6
+  - tensorflow
   - h5py
-  - bayesian-optimization
-prefix: /ua/rkassab/miniconda3/envs/chemvae
+  - hdf5
+  - pandas
+  - python=3
+  - scikit-learn
+  - boost
+  - rdkit
+  - yaml
+  - numpy
+  - matplotlib
+
+
+
