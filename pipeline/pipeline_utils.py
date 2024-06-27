@@ -91,6 +91,13 @@ def get_next_points(optimizer, budget):
         points.append(np.array(single_point).reshape(len(single_point)))
 
     return points[-budget:] ### Its a good temporary fix for the optimizer holds onto points problem
+    
+def create_reference_dict(smiles, encoded_smiles):
+    ref_dict = dict()
+    for i in range(len(smiles)):
+        ref_dict[encoded_smiles[i]] = smiles[i]
+        
+    return ref_dict
 
 def distance_calc(points, dataset, data_targets):
     #copy_targets = data_targets.copy()
