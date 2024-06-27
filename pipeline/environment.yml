@@ -16,6 +16,7 @@ dependencies:
   - yaml
   - numpy
   - matplotlib
+  - absl-py<2.0.0
 
 
 
