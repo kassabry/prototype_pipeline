@@ -63,7 +63,7 @@ self.implementation ==0 : cpu
 '''
 from keras.layers import GRU
 from keras import backend as K
-from keras import InputSpec
+from keras.layers import InputSpec
 import numpy as np
 
 if K.backend() == 'tensorflow':

@@ -15,7 +15,7 @@ when_to_transfer_output = ON_EXIT
 transfer_input_files = pipeline.tar.gz
 
 request_cpus = 4
-request_memory = 20GB
-request_disk = 20GB
+request_memory = 30GB
+request_disk = 30GB
 
 queue 1

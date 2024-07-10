@@ -51,6 +51,8 @@ if __name__ == '__main__':
 
     encoded_pria_df = pd.DataFrame(encoded_pria_smiles)
     encoded_pria_test_df = pd.DataFrame(encoded_pria_smiles_test)
+    
+    smiles_reference_dict = create_reference_dict(pria_smiles, encoded_pria_smiles) ## Modify code to print out the smiles strings instead of the encoded ones
 
     random_seeds = [random.randint(0,10000) for i in range(int(seed_count))] ### change to command line variable
     #sample_size = 15000 ### change to command line variable
@@ -99,7 +101,8 @@ if __name__ == '__main__':
         positive_df.to_csv(result_path_data + '%s_positive_df.csv' % (sample_size), index=False)
         ## Writing distances to dataframe
         pd.DataFrame(flatten(all_distances)).to_csv(result_path_data + '%s_distances_df.csv' % (sample_size), index=False)
-        plot_forest(forest, encoded_pria_test_df, encoded_pria_targets_test, result_path_imgs, sample_size)
+        if(model != 'mlp'):
+            plot_forest(forest, encoded_pria_test_df, encoded_pria_targets_test, result_path_imgs, sample_size)
         all_points, all_targets = clean_final_points(all_points, all_targets)
         explained_var = visualize(optimizer, all_points, all_targets, sample_size, result_path_imgs, budget, iter_count, positive_sample=positive_df)
         
