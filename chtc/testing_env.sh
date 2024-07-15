@@ -10,7 +10,7 @@ rm pipeline.tar.gz #--- remove the tar file from the server
 cd pipeline
 
 export HOME=$PWD
-wget -q https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh -O miniconda.sh
+wget -q https://repo.anaconda.com/miniconda/Miniconda3-py39_24.5.0-0-Linux-x86_64.sh -O miniconda.sh
 sh miniconda.sh -b -p $HOME/miniconda3
 rm miniconda.sh
 export PATH=$HOME/miniconda3/bin:$PATH
