@@ -357,7 +357,7 @@ def iterative_bayesian(budget, iteration_count, dataset, data_targets, model='fo
             explore_points = max(5, explore_points-1) # slowly lower the ratio of explore and exploit
             exploit_points = min(budget-5, exploit_points+1)
             ## train random forest after initializing points
-            forest.fit(pd.DataFrame(next_points), next_targets)
+            forest.fit(np.ravel(pd.DataFrame(next_points)), np.ravel(next_targets))
             
             # New optimizer is loaded with previously seen points
             load_logs(optimizer, logs=["./logs.log.json"]); ##### Potentially uncomment if it runs into problems

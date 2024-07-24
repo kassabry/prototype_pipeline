@@ -31,13 +31,13 @@ conda list
 #pip install -e .
 
 # Balanced Forest
-python pipeline.py --data_location=pria_data --sample_size=15000 --number_of_seeds=3 --budget=96 --number_of_iterations=25 --model="forest_balanced"
+python pipeline.py --data_location=pria_data --sample_size=10000 --number_of_seeds=1 --budget=96 --number_of_iterations=25 --model="forest_balanced"
 
 # Unweighted Forest
-python pipeline.py --data_location=pria_data --sample_size=15000 --number_of_seeds=3 --budget=96 --number_of_iterations=25 --model="forest_none"
+python pipeline.py --data_location=pria_data --sample_size=10000 --number_of_seeds=1 --budget=96 --number_of_iterations=25 --model="forest_none"
 
 # MLP
-python pipeline.py --data_location=pria_data --sample_size=15000 --number_of_seeds=3 --budget=96 --number_of_iterations=25 --model="mlp"
+python pipeline.py --data_location=pria_data --sample_size=10000 --number_of_seeds=1 --budget=96 --number_of_iterations=25 --model="mlp"
 
 
 conda deactivate
