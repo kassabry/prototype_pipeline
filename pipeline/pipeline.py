@@ -32,7 +32,7 @@ if __name__ == '__main__':
     sample_seed = given_args.sample_seed
     
     #vae = VAEUtils(directory='chemvae/models/zinc_properties/')
-    vae = VAEUtils(directory='models/zinc_properties/')
+    vae = VAEUtils(directory='models/zinc/')
     
     ''' Make all the data and target names command line variables'''
     pria_training = pd.read_csv(data_folder + '/training.csv', header=0)
